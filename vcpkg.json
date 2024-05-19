@@ -1,0 +1,11 @@
+{
+  "name": "cpp-example",
+  "version": "0.0.1",
+  "dependencies": [
+    "boost-random",
+    "websocketpp",
+    "asio",
+    "boost-type-traits",
+    "libmariadb"
+  ]
+}

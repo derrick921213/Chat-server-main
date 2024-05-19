@@ -1,0 +1,37 @@
+services:
+  dev:
+    platform: linux/amd64
+    build: .
+    volumes:
+      - .:/chatserver
+    command: ./autobuild.sh
+    tty: true
+    stdin_open: true
+    depends_on:
+      - database
+
+  server:
+    platform: linux/amd64
+    build: .
+    volumes:
+      - .:/chatserver
+    command: ./bin/server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+
+  client:
+    platform: linux/amd64
+    build: .
+    volumes:
+      - .:/chatserver
+    command: ./bin/client
+  database: 
+    platform: linux/amd64
+    image: mariadb:lts
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MARIADB_DATABASE: ${DATABASE_NAME}
+    ports:
+      - "3306:3306"
